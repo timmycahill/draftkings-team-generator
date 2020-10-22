@@ -14,18 +14,15 @@ df = pd.read_csv("C:/Users/tcahi/Downloads/DKSalaries.csv")
 df = df[["Name", "Position", "AvgPointsPerGame", "Salary"]]
 
 # Create a dataframe for each position
-qb = df[df.Position == "QB"]
-rb = df[df.Position == "RB"]
-wr = df[df.Position == "WR"]
-te = df[df.Position == "TE"]
-dst = df[df.Position == "DST"]
-
-print(wr.tail())
+qbDf = df[df.Position == "QB"]
+rbDf = df[df.Position == "RB"]
+wrDf = df[df.Position == "WR"]
+teDf = df[df.Position == "TE"]
+dstDf = df[df.Position == "DST"]
 
 # Filter skill positions by price
-qb = qb[qb.Salary >= QB_FILTER_PRICE]
-rb = rb[rb.Salary >= RB_FILTER_PRICE]
-wr = wr[wr.Salary >= WR_FILTER_PRICE]
-te = te[te.Salary >= TE_FILTER_PRICE]
+qbDf = qbDf[qbDf.Salary >= QB_FILTER_PRICE]
+rbDf = rbDf[rbDf.Salary >= RB_FILTER_PRICE]
+wrDf = wrDf[wrDf.Salary >= WR_FILTER_PRICE]
+teDf = teDf[teDf.Salary >= TE_FILTER_PRICE]
 
-print(wr.tail())
