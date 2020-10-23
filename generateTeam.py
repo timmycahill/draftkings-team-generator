@@ -107,93 +107,91 @@ for qb in qbs:
 			for k in range(len(wrs)):
 				wr1 = copy.deepcopy(rb2)
 				wr1.draft_wr(wrs[k])
-				# print("Checking teams with WR1 " + wrs[k].get_name() + "...")
 
 				# Draft WR2
 				for l in range(k + 1, len(wrs)):
 					wr2 = copy.deepcopy(wr1)
 					wr2.draft_wr(wrs[l])
-					# print("Checking teams with WR2 " + wrs[l].get_name() + "...")
 
 					# Draft WR3
-					for m in range(l + 1, len(wrs)):
-						if wrs[m].get_salary() < wr2.get_remaining_salary():
-							wr3 = copy.deepcopy(wr2)
-							wr3.draft_wr(wrs[m])
-							# print("Checking teams with WR3 " + wrs[m].get_name() + "...")
+					if wr2.get_remaining_salary() > WR_FILTER_PRICE:
+						for m in range(l + 1, len(wrs)):
+							if wrs[m].get_salary() < wr2.get_remaining_salary():
+								wr3 = copy.deepcopy(wr2)
+								wr3.draft_wr(wrs[m])
 
-							# Draft TE
-							for n in range(len(tes)):
-								if tes[n].get_salary() < wr3.get_remaining_salary():
-									te1 = copy.deepcopy(wr3)
-									te1.draft_te(tes[n])
-									# print("Checking teams with TE " + tes[n].get_name() + "...")
+								# Draft TE
+								if wr3.get_remaining_salary() > TE_FILTER_PRICE:
+									for n in range(len(tes)):
+										if tes[n].get_salary() < wr3.get_remaining_salary():
+											te1 = copy.deepcopy(wr3)
+											te1.draft_te(tes[n])
 
-									# Draft Flex WR
-									for o in range(m + 1, len(wrs)):
-										if wrs[o].get_salary() < te1.get_remaining_salary():
-											flex1 = copy.deepcopy(te1)
-											flex1.draft_flex(wrs[o])
-											# print("Checking teams with FLEX " + wrs[o].get_name() + "...")
+											# Draft Flex WR
+											if te1.get_remaining_salary() > WR_FILTER_PRICE:
+												for o in range(m + 1, len(wrs)):
+													if wrs[o].get_salary() < te1.get_remaining_salary():
+														flex1 = copy.deepcopy(te1)
+														flex1.draft_flex(wrs[o])
 
-											# Draft DST
-											for dst in dsts:
-												dst1 = copy.deepcopy(flex1)
-												dst1.draft_dst(dst)
+														# Draft DST
+														for dst in dsts:
+															dst1 = copy.deepcopy(flex1)
+															dst1.draft_dst(dst)
 
-												# Compare team with best team
-												if dst1.is_full() and dst1.get_projected_points() > bestTeam.get_projected_points():
-													bestTeam = copy.deepcopy(dst1)
+															# Compare team with best team
+															if dst1.is_full() and dst1.get_projected_points() > bestTeam.get_projected_points():
+																bestTeam = copy.deepcopy(dst1)
 
-													# Print lineup and projected points of best team
-													print("\n\nNew Best Team Found!\n")
-													print("Lineup:\n" + bestTeam.get_lineup())
-													print("Projected points: " + str(bestTeam.get_projected_points()))
-													print("Remaining Salary: $" + str(bestTeam.get_remaining_salary()))
+																# Print lineup and projected points of best team
+																print("\n\nNew Best Team Found!\n")
+																print("Lineup:\n" + bestTeam.get_lineup())
+																print("Projected points: " + str(bestTeam.get_projected_points()))
+																print("Remaining Salary: $" + str(bestTeam.get_remaining_salary()))
 
-									# Draft Flex RB
-									for p in range(j + 1, len(rbs)):
-										if rbs[p].get_salary() < te1.get_remaining_salary():
-											flex1 = copy.deepcopy(te1)
-											flex1.draft_flex(rbs[p])
-											# print("Checking teams with FLEX " + rbs[p].get_name() + "...")
+											# Draft Flex RB
+											if te1.get_remaining_salary() > RB_FILTER_PRICE:
+												for p in range(j + 1, len(rbs)):
+													if rbs[p].get_salary() < te1.get_remaining_salary():
+														flex1 = copy.deepcopy(te1)
+														flex1.draft_flex(rbs[p])
 
-											# Draft DST
-											for dst in dsts:
-												dst1 = copy.deepcopy(flex1)
-												dst1.draft_dst(dst)
+														# Draft DST
+														for dst in dsts:
+															dst1 = copy.deepcopy(flex1)
+															dst1.draft_dst(dst)
 
-												# Compare team with best team
-												if dst1.is_full() and dst1.get_projected_points() > bestTeam.get_projected_points():
-													bestTeam = copy.deepcopy(dst1)
+															# Compare team with best team
+															if dst1.is_full() and dst1.get_projected_points() > bestTeam.get_projected_points():
+																bestTeam = copy.deepcopy(dst1)
 
-													# Print lineup and projected points of best team
-													print("\n\nNew Best Team Found!\n")
-													print("Lineup:\n" + bestTeam.get_lineup())
-													print("Projected points: " + str(bestTeam.get_projected_points()))
-													print("Remaining Salary: $" + str(bestTeam.get_remaining_salary()))
+																# Print lineup and projected points of best team
+																print("\n\nNew Best Team Found!\n")
+																print("Lineup:\n" + bestTeam.get_lineup())
+																print("Projected points: " + str(bestTeam.get_projected_points()))
+																print("Remaining Salary: $" + str(bestTeam.get_remaining_salary()))
 
-									# Draft Flex TE
-									for q in range(n + 1, len(tes)):
-										if tes[q].get_salary() < te1.get_remaining_salary():
-											flex1 = copy.deepcopy(te1)
-											flex1.draft_flex(tes[q])
-											# print("Checking teams with FLEX " + tes[q].get_name() + "...")
+											# Draft Flex TE
+											if te1.get_remaining_salary() > TE_FILTER_PRICE:
+												for q in range(n + 1, len(tes)):
+													if tes[q].get_salary() < te1.get_remaining_salary():
+														flex1 = copy.deepcopy(te1)
+														flex1.draft_flex(tes[q])
 
-											# Draft DST
-											for dst in dsts:
-												dst1 = copy.deepcopy(flex1)
-												dst1.draft_dst(dst)
+														# Draft DST
+														for dst in dsts:
+															dst1 = copy.deepcopy(flex1)
+															dst1.draft_dst(dst)
 
-												# Compare team with best team
-												if dst1.is_full() and dst1.get_projected_points() > bestTeam.get_projected_points():
-													bestTeam = copy.deepcopy(dst1)
+															# Compare team with best team
+															if dst1.is_full() and dst1.get_projected_points() > bestTeam.get_projected_points():
+																bestTeam = copy.deepcopy(dst1)
 
-													# Print lineup and projected points of best team
-													print("\n\nNew Best Team Found!\n")
-													print("Lineup:\n" + bestTeam.get_lineup())
-													print("Projected points: " + str(bestTeam.get_projected_points()))
-													print("Remaining Salary: $" + str(bestTeam.get_remaining_salary()))
+																# Print lineup and projected points of best team
+																print("\n\nNew Best Team Found!\n")
+																print("Lineup:\n" + bestTeam.get_lineup())
+																print("Projected points: " + str(bestTeam.get_projected_points()))
+																print("Remaining Salary: $" + str(bestTeam.get_remaining_salary()))
 
 									
 
