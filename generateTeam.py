@@ -4,12 +4,6 @@ import copy
 from player import Player
 from team import Team
 
-# Test function
-def print_lineup(t):
-	print(t.get_lineup())
-	print(t.get_remaining_salary())
-	print("\n\n\n")
-
 
 # Define constants
 STARTING_SALARY = 50000
