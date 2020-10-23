@@ -1,4 +1,4 @@
-cl ass Player:
+class Player:
 	def __init__(self, name, position, ppg, salary):
 		self.name = name
 		self.position = position
