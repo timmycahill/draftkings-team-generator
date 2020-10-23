@@ -104,3 +104,6 @@ class Team:
 
 	def get_remaining_salary(self):
 		return self.remainingSalary
+
+	def is_full(self):
+		return self.get_qb_rem() == 0 and self.get_rb_rem() == 0 and self.get_wr_rem() == 0 and self.get_te_rem() == 0 and self.get_flex_rem() == 0 and self.get_dst_rem() == 0
