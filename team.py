@@ -66,20 +66,21 @@ class Team:
 		return MAX_DST - len(self.dst)
 
 	def get_lineup(self):
-		lineup = ""
+		lineup = "      Player                        Price       Points\n"
+		lineup += "----------------------------------------------------------\n"
 
 		for player in self.qb:
-			lineup += "QB: " + player.get_name() + '\n'
+			lineup += "  QB: {0:<30s}${1:<10} {2:<}\n".format(player.get_name(), player.get_salary(), player.get_ppg())
 		for player in self.rbs:
-			lineup += "RB: " + player.get_name() + '\n'
+			lineup += "  RB: {0:<30s}${1:<10} {2:<}\n".format(player.get_name(), player.get_salary(), player.get_ppg())
 		for player in self.wrs:
-			lineup += "WR: " + player.get_name() + '\n'
+			lineup += "  WR: {0:<30s}${1:<10} {2:<}\n".format(player.get_name(), player.get_salary(), player.get_ppg())
 		for player in self.te:
-			lineup += "TE: " + player.get_name() + '\n'
+			lineup += "  TE: {0:<30s}${1:<10} {2:<}\n".format(player.get_name(), player.get_salary(), player.get_ppg())
 		for player in self.flex:
-			lineup += "FLEX: " + player.get_name() + '\n'
+			lineup += "FLEX: {0:<30s}${1:<10} {2:<}\n".format(player.get_name(), player.get_salary(), player.get_ppg())
 		for player in self.dst:
-			lineup += "DST: " + player.get_name() + '\n'
+			lineup += " DST: {0:<30s}${1:<10} {2:<}\n".format(player.get_name(), player.get_salary(), player.get_ppg())
 
 		return lineup
 
