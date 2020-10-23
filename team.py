@@ -43,7 +43,7 @@ class Team:
 
 	def draft_te(self, te):
 		if te.get_salary() <= self.remainingSalary:
-			self.tes.append(te)
+			self.te.append(te)
 			self.remainingSalary -= te.get_salary()
 
 	def get_te_rem(self):

@@ -20,12 +20,25 @@ else:
 DST_FILTER_PRICE = 2000
 
 
+# Read in inactive players
+INACTIVES = []
+f = open("inactivePlayers.txt", "r")
+for player in f:
+	print(player[0:len(player) - 1])
+	INACTIVES.append(player[0:len(player) -1])
+f.close()
+
+
 # Read in player data
 df = pd.read_csv("C:/Users/tcahi/Downloads/DKSalaries.csv")
 
 
 # Clean up dataframe
 df = df[["Name", "Position", "AvgPointsPerGame", "Salary"]]
+
+
+# Filter out inactives
+df = df[~df.Name.isin(INACTIVES)]
 
 
 # Create a dataframe for each position
