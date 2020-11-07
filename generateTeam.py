@@ -28,18 +28,21 @@ for player in f:
 	INACTIVES.append(player[0:len(player) -1])
 f.close()
 
+# Do teams to ignore
+BAD_TEAMS = ["NYJ"]
+
 
 # Read in player data
 df = pd.read_csv("C:/Users/tcahi/Downloads/DKSalaries.csv")
 
 
 # Clean up dataframe
-df = df[["Name", "Position", "AvgPointsPerGame", "Salary"]]
+df = df[["Name", "Position", "AvgPointsPerGame", "Salary", "TeamAbbrev"]]
 
 
 # Filter out inactives
 df = df[~df.Name.isin(INACTIVES)]
-
+df = df[~df.TeamAbbrev.isin(BAD_TEAMS)]
 
 # Create a dataframe for each position
 qbDf = df[df.Position == "QB"]
@@ -50,9 +53,10 @@ dstDf = df[df.Position == "DST"]
 
 
 # Filter skill positions by price
-qbDf = qbDf[qbDf.Salary >= QB_FILTER_PRICE]
-rbDf = rbDf[rbDf.Salary >= RB_FILTER_PRICE]
-wrDf = wrDf[wrDf.Salary >= WR_FILTER_PRICE]
+qbDf = qbDf[qbDf.AvgPointsPerGame >= 15]
+rbDf = rbDf[rbDf.AvgPointsPerGame >= 15]
+wrDf = wrDf[wrDf.AvgPointsPerGame >= 15]
+teDf = teDf[teDf.AvgPointsPerGame >= 10]
 teDf = teDf[teDf.Salary >= TE_FILTER_PRICE]
 
 
@@ -76,10 +80,20 @@ for index, row in wrDf.iterrows():
 for index, row in teDf.iterrows():
 	tes.append(Player(row["Name"], row["Position"], row["AvgPointsPerGame"], row["Salary"]))
 
-flexs = rbs + wrs + tes
-
 for index, row in dstDf.iterrows():
 	dsts.append(Player(row["Name"], row["Position"], row["AvgPointsPerGame"], row["Salary"]))
+
+
+# Print list lengths
+print("QBS: " + str(len(qbs)))
+print("RBS: " + str(len(rbs)))
+print("WRS: " + str(len(wrs)))
+print("TES: " + str(len(tes)))
+print("FLEXS: " + str(len(rbs) + len(wrs) + len(tes)))
+print("DSTS: " + str(len(dsts)))
+
+totalPossibilities = len(qbs) * len(rbs) * len(wrs) * len(tes) * (len(rbs) + len(wrs) + len(tes)) * len(dsts)
+print("Total possibile teams: " + str(totalPossibilities))
 
 
 # Generate team
@@ -192,7 +206,11 @@ for qb in qbs:
 																print("Lineup:\n" + bestTeam.get_lineup())
 																print("Projected points: " + str(bestTeam.get_projected_points()))
 																print("Remaining Salary: $" + str(bestTeam.get_remaining_salary()))
-
+		# Print lineup and projected points of best team
+		print("\n\nCurrent Best Team:\n")
+		print(bestTeam.get_lineup())
+		print("Projected points: " + str(bestTeam.get_projected_points()))
+		print("Remaining Salary: $" + str(bestTeam.get_remaining_salary()))
 									
 
 # Print lineup and projected points of best team
