@@ -59,6 +59,13 @@ wrDf = wrDf[wrDf.AvgPointsPerGame >= 15]
 teDf = teDf[teDf.AvgPointsPerGame >= 10]
 teDf = teDf[teDf.Salary >= TE_FILTER_PRICE]
 
+# Sort dataframes by points (highest first)
+qbDf = qbDf.sort_values(by='AvgPointsPerGame', ascending=False)
+rbDf = rbDf.sort_values(by='AvgPointsPerGame', ascending=False)
+wrDf = wrDf.sort_values(by='AvgPointsPerGame', ascending=False)
+teDf = teDf.sort_values(by='AvgPointsPerGame', ascending=False)
+teDf = teDf.sort_values(by='AvgPointsPerGame', ascending=False)
+
 
 # Create a list of players objects for each position group
 qbs = []
